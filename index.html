@@ -1,0 +1,362 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Scotts Email Signature Generator</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Place favicon.ico in the root directory -->
+  <link href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(-45deg, #718050, #464646);
+    }
+  </style>
+  <!--  https://www.hubspot.com/email-signature-generator -->
+</head>
+
+<body>
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  <div id="app">
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 bd-sidebar bg-dark text-light py-md-3 px-md-5 " style="min-height: 100vh;">
+          <p class="lead">
+            Enter your details
+          </p>
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="email" class="form-control" v-model="firstName">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="email" class="form-control" v-model="lastName">
+          </div>
+          <div class="form-group">
+            <label>Job Title</label>
+            <input type="email" class="form-control" v-model="jobName">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="email" class="form-control" v-model="phoneNumber">
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="email" class="form-control" v-model="mobileNumber">
+          </div>
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" class="form-control" v-model="emailAddress">
+          </div>
+        </div>
+
+        <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content bg-green">
+          <div class="bg-white rounded p-4" v-html="html" id="signature">
+            
+          </div>
+          <div class="my-4 flex">
+              <button class="btn btn-dark" @click="copy">{{success ? 'Copied' : 'Copy' }}</button>
+          </div>
+          <hr />
+          <div class="my-4 p-4 text-light rounded">
+            <h3 id="esg-outlook-info">How do I add my new email signature to Outlook?</h3>
+            <ol>
+              <ol>
+              <li>Log in to your Outlook account and select the Home Tab&gt; New Email</li>
+              <li>Click the Message tab</li>
+              <li>In the Include group section, select Signature &gt; Signatures</li>
+              <li>In the Choose Default Signature section, be sure to select the account you would like to associate with the signature from the e-mail account dropdown</li>
+              <li>In the Select Signature to Edit section, click the New button and name your signature</li>
+              <li>In the Edit Signature section, paste in your HubSpot generated signature and select OK</li>
+              </ol>
+              </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./bower_components/vue/dist/vue.min.js"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        firstName: '',
+        lastName: '',
+        jobName: '',
+        phoneNumber: '01832 732366',
+        mobileNumber: '',
+        emailAddress: '',
+        success: false
+      },
+      
+      methods: {
+        copy: function(){
+          // const el = document.createElement('textarea');
+          // el.value = this.html;
+          // document.body.appendChild(el);
+          // const el = document.getElementById('signature');
+          // el.select();
+          // document.execCommand('copy');
+          // document.body.removeChild(el);
+          var copyDiv = document.createElement('div');
+          copyDiv.contentEditable = true;
+          document.body.appendChild(copyDiv);
+          copyDiv.innerHTML = this.html;
+          copyDiv.unselectable = "off";
+          copyDiv.focus();
+          document.execCommand('SelectAll');
+          document.execCommand("Copy", false, null);
+          document.body.removeChild(copyDiv);
+          
+          this.success = true;
+          var self = this;
+          setTimeout(function(){  self.success = false}, 3000);
+        }
+      },
+      computed: {
+        html: function() {
+          return `<table cellpadding="0" cellspacing="0"
+              style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+              <tbody>
+                <tr>
+                  <td>
+                    <table cellpadding="0" cellspacing="0"
+                      style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align: top;">
+                            <h3 color="#718050" style="margin: 0px; font-size: 18px; color: rgb(113, 128, 80);">
+                              <span>${this.firstName}</span><span>&nbsp;</span><span>${this.lastName}</span>
+                            </h3>
+                            <p color="#718050" font-size="medium"
+                              style="margin: 0px; color: rgb(113, 128, 80); font-size: 14px; line-height: 22px;">
+                              <span>${this.jobName}</span>
+                            </p>
+                            <p color="#718050" font-size="medium"
+                              style="margin: 0px; font-weight: 500; color: rgb(113, 128, 80); font-size: 14px; line-height: 22px;">
+                              <span>Scotts of Thrapston Ltd.</span>
+                            </p>
+                            
+
+                            <br />
+
+                            <img
+                              src="https://www.scottsofthrapston.co.uk/wp-content/uploads/2020/01/Scotts_Est_FullColour_RGB_resized.png"
+                              role="presentation" width="130" style="max-width: 130px; display: block;" />
+                            <br />
+
+                            <table cellpadding="0" cellspacing="0"
+                              style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                              <tbody>
+                                <tr height="25" style="vertical-align: middle;">
+                                  <td width="30" style="vertical-align: middle;">
+                                    <table cellpadding="0" cellspacing="0"
+                                      style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                      <tbody>
+                                        <tr>
+                                          <td style="vertical-align: bottom;">
+                                            <span color="#718050" width="11"
+                                              style="display: block; background-color: rgb(113, 128, 80);"><img
+                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png"
+                                                color="#718050" width="13"
+                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td style="padding: 0px; color: rgb(113, 128, 80);">
+                                    <a href="tel:01832 732366" color="#718050"
+                                      style="text-decoration: none; color: rgb(113, 128, 80); font-size: 12px;"><span>${this.phoneNumber}</span> <span>${this.mobileNumber ? '| ' + this.mobileNumber : ''}</span></a>
+                                  </td>
+                                </tr>
+                                <tr height="25" style="vertical-align: middle;">
+                                  <td width="30" style="vertical-align: middle;">
+                                    <table cellpadding="0" cellspacing="0"
+                                      style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                      <tbody>
+                                        <tr>
+                                          <td style="vertical-align: bottom;">
+                                            <span color="#718050" width="11"
+                                              style="display: block; background-color: rgb(113, 128, 80);"><img
+                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png"
+                                                color="#718050" width="13"
+                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td style="padding: 0px;">
+                                    <a href="mailto:${this.emailAddress}" color="#718050"
+                                      style="text-decoration: none; color: rgb(113, 128, 80); font-size: 12px;"><span>${this.emailAddress}</span></a>
+                                  </td>
+                                </tr>
+                                <tr height="25" style="vertical-align: middle;">
+                                  <td width="30" style="vertical-align: middle;">
+                                    <table cellpadding="0" cellspacing="0"
+                                      style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                      <tbody>
+                                        <tr>
+                                          <td style="vertical-align: bottom;">
+                                            <span color="#718050" width="11"
+                                              style="display: block; background-color: rgb(113, 128, 80);"><img
+                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png"
+                                                color="#718050" width="13"
+                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td style="padding: 0px;">
+                                    <a href="//www.scottsofthrapston.co.uk" color="#718050"
+                                      style="text-decoration: none; color: rgb(113, 128, 80); font-size: 12px;"><span>www.scottsofthrapston.co.uk</span></a>
+                                  </td>
+                                </tr>
+                                <tr height="25" style="vertical-align: middle;">
+                                  <td width="30" style="vertical-align: middle;">
+                                    <table cellpadding="0" cellspacing="0"
+                                      style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                      <tbody>
+                                        <tr>
+                                          <td style="vertical-align: bottom;">
+                                            <span color="#718050" width="11"
+                                              style="display: block; background-color: rgb(113, 128, 80);"><img
+                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png"
+                                                color="#718050" width="13"
+                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td style="padding: 0px;">
+                                    <span color="#718050"
+                                      style="font-size: 12px; color: rgb(113, 128, 80);"><span>Bridge Street, Thrapston,
+                                        Northamptonshire, NN14
+                                        4LR</span></span>
+                               
+                                  </td>
+                                </tr>
+                                <tr height="25" style="vertical-align: middle;">
+                                  <td width="30" style="vertical-align: middle;">
+                                    <table cellpadding="0" cellspacing="0"
+                                      style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                      <tbody>
+                                        <tr>
+                                          <td style="vertical-align: bottom;">
+                                            <span color="#718050" width="11"
+                                              style="display: block; background-color: rgb(113, 128, 80);"></span>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td style="padding: 0px;">
+                                    <span color="#718050"
+                                      style="font-size: 12px; color: rgb(113, 128, 80);">Registered No. 04178948 | VAT Registration No. 119 1529  76</span>
+                               
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                          <td width="45">
+                            <div></div>
+                          </td>
+                          <td style="vertical-align: bottom;">
+                            <table cellpadding="0" cellspacing="0"
+                              style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <img
+                                      src="https://www.scottsofthrapston.co.uk/wp-content/themes/oshin_child/img/woodring_back.png"
+                                      role="presentation" width="130" style="max-width: 130px; display: block;" />
+
+                                  </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="16"></td>
+                        </tr>
+
+                        <tr>
+                          <td style="text-align: left;">
+                            <table cellpadding="0" cellspacing="0"
+                              style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial; display: inline-block;">
+                              <tbody>
+                                <tr style="text-align: center;">
+                                  <td>
+                                    <a href="https://www.facebook.com/scottsofthrapston/" color="#718050"
+                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
+                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/facebook-icon-2x.png"
+                                        alt="facebook" color="#718050" height="24"
+                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                  </td>
+                                  <td width="5">
+                                    <div></div>
+                                  </td>
+                                  <td>
+                                    <a href="https://twitter.com/scottsthrapston" color="#718050"
+                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
+                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/twitter-icon-2x.png"
+                                        alt="twitter" color="#718050" height="24"
+                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                  </td>
+                                  <td width="5">
+                                    <div></div>
+                                  </td>
+                                  <td>
+                                    <a href="https://www.linkedin.com/company/scotts-of-thrapston-limited/"
+                                      color="#718050"
+                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
+                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/linkedin-icon-2x.png"
+                                        alt="linkedin" color="#718050" height="24"
+                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                  </td>
+                                  <td width="5">
+                                    <div></div>
+                                  </td>
+                                  <td>
+                                    <a href="https://www.instagram.com/scotts_of_thrapston/" color="#718050"
+                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
+                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/instagram-icon-2x.png"
+                                        alt="instagram" color="#718050" height="24"
+                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                  </td>
+                                  <td width="5">
+                                    <div></div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>`
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
