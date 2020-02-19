@@ -32,27 +32,35 @@
           </p>
           <div class="form-group">
             <label>First Name</label>
-            <input type="email" class="form-control" v-model="firstName">
+            <input type="text" class="form-control" v-model="firstName">
           </div>
           <div class="form-group">
             <label>Last Name</label>
-            <input type="email" class="form-control" v-model="lastName">
+            <input type="text" class="form-control" v-model="lastName">
           </div>
           <div class="form-group">
             <label>Job Title</label>
-            <input type="email" class="form-control" v-model="jobName">
+            <input type="text" class="form-control" v-model="jobName">
           </div>
           <div class="form-group">
             <label>Phone Number</label>
-            <input type="email" class="form-control" v-model="phoneNumber">
+            <input type="text" class="form-control" v-model="phoneNumber">
           </div>
           <div class="form-group">
             <label>Mobile Number</label>
-            <input type="email" class="form-control" v-model="mobileNumber">
+            <input type="text" class="form-control" v-model="mobileNumber">
           </div>
           <div class="form-group">
             <label>Email address</label>
-            <input type="email" class="form-control" v-model="emailAddress">
+            <input type="text" class="form-control" v-model="emailAddress">
+          </div>
+          <div class="form-group">
+            <label>Custom Link URL</label>
+            <input type="text" class="form-control" v-model="customLinkUrl">
+          </div>
+          <div class="form-group">
+            <label>Custom Link Text</label>
+            <input type="text" class="form-control" v-model="customLinkText">
           </div>
         </div>
 
@@ -61,7 +69,7 @@
             
           </div>
           <div class="my-4 flex">
-              <button class="btn btn-dark" @click="copy">{{success ? 'Copied' : 'Copy' }}</button>
+              <button :disabled="!emailAddress || !phoneNumber" class="btn btn-dark" @click="copy">{{success ? 'Copied' : 'Copy' }}</button>
           </div>
           <hr />
           <div class="my-4 p-4 text-light rounded">
@@ -88,12 +96,14 @@
     var app = new Vue({
       el: '#app',
       data: {
-        firstName: '',
+        firstName: '',scott
         lastName: '',
         jobName: '',
         phoneNumber: '01832 732366',
         mobileNumber: '',
         emailAddress: '',
+        customLinkUrl: '',
+        customLinkText: '',
         success: false
       },
       
@@ -144,9 +154,13 @@
                               style="margin: 0px; font-weight: 500; color: rgb(113, 128, 80); font-size: 14px; line-height: 22px;">
                               <span>Scotts of Thrapston Ltd.</span>
                             </p>
-                            
-
-                            <br />
+                            ${this.customLinkUrl && this.customLinkText ? `
+                            <p color="#718050" font-size="medium">
+                              <a href="${this.customLinkUrl}" color="#718050"
+                                      style="text-decoration: none; margin: 0px; font-weight: 500; color: rgb(113, 128, 80); font-size: 14px; line-height: 22px;"><span>${this.customLinkText} &raquo;</span></a>
+                            </p>
+                            ` : `<br />`
+                            }
 
                             <img
                               src="https://www.scottsofthrapston.co.uk/wp-content/uploads/2020/01/Scotts_Est_FullColour_RGB_resized.png"
@@ -164,10 +178,10 @@
                                         <tr>
                                           <td style="vertical-align: bottom;">
                                             <span color="#718050" width="11"
-                                              style="display: block; background-color: rgb(113, 128, 80);"><img
-                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png"
+                                              style="display: block;"><img
+                                                src="https://philyboysmith.github.io/scotts-email/images/phone.png"
                                                 color="#718050" width="13"
-                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                                style="display: block;" /></span>
                                           </td>
                                         </tr>
                                       </tbody>
@@ -186,10 +200,10 @@
                                         <tr>
                                           <td style="vertical-align: bottom;">
                                             <span color="#718050" width="11"
-                                              style="display: block; background-color: rgb(113, 128, 80);"><img
-                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png"
+                                              style="display: block;"><img
+                                                src="https://philyboysmith.github.io/scotts-email/images/mail.png"
                                                 color="#718050" width="13"
-                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                                style="display: block;" /></span>
                                           </td>
                                         </tr>
                                       </tbody>
@@ -208,10 +222,10 @@
                                         <tr>
                                           <td style="vertical-align: bottom;">
                                             <span color="#718050" width="11"
-                                              style="display: block; background-color: rgb(113, 128, 80);"><img
-                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png"
+                                              style="display: block;"><img
+                                                src="https://philyboysmith.github.io/scotts-email/images/chain.png"
                                                 color="#718050" width="13"
-                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                                style="display: block;" /></span>
                                           </td>
                                         </tr>
                                       </tbody>
@@ -230,10 +244,10 @@
                                         <tr>
                                           <td style="vertical-align: bottom;">
                                             <span color="#718050" width="11"
-                                              style="display: block; background-color: rgb(113, 128, 80);"><img
-                                                src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png"
+                                              style="display: block;"><img
+                                                src="https://philyboysmith.github.io/scotts-email/images/map-marker.png"
                                                 color="#718050" width="13"
-                                                style="display: block; background-color: rgb(113, 128, 80);" /></span>
+                                                style="display: block;" /></span>
                                           </td>
                                         </tr>
                                       </tbody>
@@ -247,26 +261,8 @@
                                
                                   </td>
                                 </tr>
-                                <tr height="25" style="vertical-align: middle;">
-                                  <td width="30" style="vertical-align: middle;">
-                                    <table cellpadding="0" cellspacing="0"
-                                      style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
-                                      <tbody>
-                                        <tr>
-                                          <td style="vertical-align: bottom;">
-                                            <span color="#718050" width="11"
-                                              style="display: block; background-color: rgb(113, 128, 80);"></span>
-                                          </td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </td>
-                                  <td style="padding: 0px;">
-                                    <span color="#718050"
-                                      style="font-size: 12px; color: rgb(113, 128, 80);">Registered No. 04178948 | VAT Registration No. 119 1529  76</span>
-                               
-                                  </td>
-                                </tr>
+                                
+                                
                               </tbody>
                             </table>
                           </td>
@@ -291,32 +287,42 @@
 
                           </td>
                         </tr>
+                        
                         <tr>
                           <td height="16"></td>
                         </tr>
-
                         <tr>
                           <td style="text-align: left;">
                             <table cellpadding="0" cellspacing="0"
                               style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial; display: inline-block;">
                               <tbody>
-                                <tr style="text-align: center;">
+                                <tr style="text-align: left;">
                                   <td>
                                     <a href="https://www.facebook.com/scottsofthrapston/" color="#718050"
-                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
-                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/facebook-icon-2x.png"
+                                      style="display: inline-block; padding: 0px; "><img
+                                        src="https://philyboysmith.github.io/scotts-email/images/facebook-square.png"
                                         alt="facebook" color="#718050" height="24"
-                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                        style=" max-width: 135px; display: block;" /></a>
                                   </td>
                                   <td width="5">
                                     <div></div>
                                   </td>
                                   <td>
                                     <a href="https://twitter.com/scottsthrapston" color="#718050"
-                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
-                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/twitter-icon-2x.png"
+                                      style="display: inline-block; padding: 0px; "><img
+                                        src="https://philyboysmith.github.io/scotts-email/images/twitter-square.png"
                                         alt="twitter" color="#718050" height="24"
-                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                        style=" max-width: 135px; display: block;" /></a>
+                                  </td>
+                                  <td width="5">
+                                    <div></div>
+                                  </td>
+                                  <td>
+                                    <a href="https://www.instagram.com/scotts_of_thrapston/" color="#718050"
+                                      style="display: inline-block; padding: 0px; "><img
+                                        src="https://philyboysmith.github.io/scotts-email/images/instagram.png"
+                                        alt="instagram" color="#718050" height="24"
+                                        style=" max-width: 135px; display: block;" /></a>
                                   </td>
                                   <td width="5">
                                     <div></div>
@@ -324,28 +330,49 @@
                                   <td>
                                     <a href="https://www.linkedin.com/company/scotts-of-thrapston-limited/"
                                       color="#718050"
-                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
-                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/linkedin-icon-2x.png"
+                                      style="display: inline-block; padding: 0px; "><img
+                                        src="https://philyboysmith.github.io/scotts-email/images/linkedin-square.png"
                                         alt="linkedin" color="#718050" height="24"
-                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                        style=" max-width: 135px; display: block;" /></a>
+                                  </td>
+                                  <td width="5">
+                                    <div></div>
+                                  </td>
+                                  
+                                  <td>
+                                    <a href="https://www.pinterest.co.uk/scottsthrapston/" color="#718050"
+                                      style="display: inline-block; padding: 0px; "><img
+                                        src="https://philyboysmith.github.io/scotts-email/images/pinterest-square.png"
+                                        alt="pinterest" color="#718050" height="24"
+                                        style=" max-width: 135px; display: block;" /></a>
                                   </td>
                                   <td width="5">
                                     <div></div>
                                   </td>
                                   <td>
-                                    <a href="https://www.instagram.com/scotts_of_thrapston/" color="#718050"
-                                      style="display: inline-block; padding: 0px; background-color: rgb(113, 128, 80);"><img
-                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/instagram-icon-2x.png"
-                                        alt="instagram" color="#718050" height="24"
-                                        style="background-color: rgb(113, 128, 80); max-width: 135px; display: block;" /></a>
+                                    <a href="https://www.youtube.com/user/scotts1920" color="#718050"
+                                      style="display: inline-block; padding: 0px; "><img
+                                        src="https://philyboysmith.github.io/scotts-email/images/youtube-square.png"
+                                        alt="youtube" color="#718050" height="24"
+                                        style=" max-width: 135px; display: block;" /></a>
                                   </td>
                                   <td width="5">
                                     <div></div>
                                   </td>
                                 </tr>
+                                
                               </tbody>
                             </table>
                           </td>
+                        </tr>
+                        
+                        <tr>
+                          <td style="padding: 0px;">
+                            <span color="#718050"
+                                      style="font-size: 12px; color: rgb(113, 128, 80);">Registered No. 04178948 | VAT Registration No. 119 1529  76 | </span><a color="#718050"
+                                      style="font-size: 12px; color: rgb(113, 128, 80);" href="https://www.scottsofthrapston.co.uk/about/privacy-policy/">Read our Privacy Policy</a>
+                               
+                                  </td>
                         </tr>
                       </tbody>
                     </table>
